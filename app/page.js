@@ -11,18 +11,19 @@ function Card({id,name,tf,onAuth}){
   {!d?<p>Loading…</p>:d.error?<p className="err">{d.error}</p>:<>
   <div className="px">{f(d.price)}</div>
   {s?<><div className="row">Entry<b>{f(s.entry)}</b></div><div className="row">Setup<b>{s.why}</b></div><div className="row sl">Stop loss<b>{f(s.sl)}</b></div><div className="row tp">Take profit 1<b>{f(s.tp1)}</b></div><div className="row tp">Take profit 2<b>{f(s.tp2)}</b></div></>
-  :<div className="row">No setup. Waiting for trend, cross and momentum to agree.</div>}
+  :<div className="row">No setup. Waiting for liquidity sweep, structure shift and FVG.</div>}
   {d.sr?.support!=null&&<div className="row">Support<b>{f(d.sr.support)}</b></div>}{d.sr?.resistance!=null&&<div className="row">Resistance<b>{f(d.sr.resistance)}</b></div>}
   <div className="row">Trend / RSI<b>{d.trend} / {d.rsi}</b></div>
   <div className="row">Backtest win rate<b>{b.winRate==null?'n/a':b.winRate+'%'} ({b.trades} trades)</b></div></>}</div>)}
 function Chart({tf}){
   const ref=useRef(null);
   useEffect(()=>{const el=ref.current;el.innerHTML='';
-    const w=document.createElement('div');w.className='tradingview-widget-container__widget';w.style.height='100%';el.appendChild(w);
     const sc=document.createElement('script');sc.src='https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';sc.async=true;
-    sc.innerHTML=JSON.stringify({autosize:true,symbol:'OANDA:XAUUSD',interval:tf==='1m'?'1':'5',theme:'dark',style:'1',locale:'en',backgroundColor:'rgba(4,10,24,1)',gridColor:'rgba(34,228,255,0.07)',allow_symbol_change:false,hide_side_toolbar:false,withdateranges:true});
+    sc.innerHTML=JSON.stringify({autosize:true,symbol:'OANDA:XAUUSD',interval:tf==='1m'?'1':'5',theme:'dark',style:'1',locale:'en',backgroundColor:'rgba(4,10,24,1)',gridColor:'rgba(34,228,255,0.07)',allow_symbol_change:false,hide_side_toolbar:true,hide_volume:true,withdateranges:false,details:false});
     el.appendChild(sc)},[tf]);
-  return <div ref={ref} className="tradingview-widget-container" style={{height:480,marginTop:16,borderRadius:14,overflow:'hidden',border:'1px solid #22e4ff55',boxShadow:'0 0 30px #22e4ff22'}}/>}
+  return <div className="tvc" style={{marginTop:16,borderRadius:14,overflow:'hidden',border:'1px solid #22e4ff55',boxShadow:'0 0 30px #22e4ff22'}}>
+  <style>{'.tvc{height:640px}.tvc .tradingview-widget-container,.tvc iframe{height:100%!important;width:100%!important}'}</style>
+  <div ref={ref} className="tradingview-widget-container"/></div>}
 export default function Home(){
   const[auth,setAuth]=useState(true),[tf,setTf]=useState('5m'),[u,setU]=useState(''),[p,setP]=useState(''),[err,setErr]=useState('');
   const onAuth=useCallback(()=>setAuth(false),[]);
