@@ -1,5 +1,5 @@
 'use client';
-import {useState,useEffect,useCallback} from 'react';
+import {useState,useEffect,useCallback,useRef} from 'react';
 const SYMS=[['XAU/USD','GOLD (XAU/USD)']];
 const f=n=>n>=100?n.toFixed(2):n.toFixed(5);
 function Card({id,name,tf,onAuth}){
@@ -14,6 +14,14 @@ function Card({id,name,tf,onAuth}){
   :<div className="row">No setup. Waiting for trend, cross and momentum to agree.</div>}
   <div className="row">Trend / RSI<b>{d.trend} / {d.rsi}</b></div>
   <div className="row">Backtest win rate<b>{b.winRate==null?'n/a':b.winRate+'%'} ({b.trades} trades)</b></div></>}</div>)}
+function Chart({tf}){
+  const ref=useRef(null);
+  useEffect(()=>{const el=ref.current;el.innerHTML='';
+    const w=document.createElement('div');w.className='tradingview-widget-container__widget';w.style.height='100%';el.appendChild(w);
+    const sc=document.createElement('script');sc.src='https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';sc.async=true;
+    sc.innerHTML=JSON.stringify({autosize:true,symbol:'OANDA:XAUUSD',interval:tf==='1m'?'1':'5',theme:'dark',style:'1',locale:'en',backgroundColor:'rgba(4,10,24,1)',gridColor:'rgba(34,228,255,0.07)',allow_symbol_change:false,hide_side_toolbar:false,withdateranges:true});
+    el.appendChild(sc)},[tf]);
+  return <div ref={ref} className="tradingview-widget-container" style={{height:480,marginTop:16,borderRadius:14,overflow:'hidden',border:'1px solid #22e4ff55',boxShadow:'0 0 30px #22e4ff22'}}/>}
 export default function Home(){
   const[auth,setAuth]=useState(true),[tf,setTf]=useState('5m'),[u,setU]=useState(''),[p,setP]=useState(''),[err,setErr]=useState('');
   const onAuth=useCallback(()=>setAuth(false),[]);
@@ -25,4 +33,5 @@ export default function Home(){
   return(<main><header><h1>Fx Mahin</h1><div style={{display:'flex',gap:8}}>
   {['1m','5m'].map(x=><button key={x} className={tf===x?'on':''} onClick={()=>setTf(x)}>{x}</button>)}<button onClick={out}>Sign out</button></div></header>
   <div className="cards">{SYMS.map(([id,n])=><Card key={id+tf} id={id} name={n} tf={tf} onAuth={onAuth}/>)}</div>
+  <Chart tf={tf}/>
   <p><small>Signals refresh every minute. Win rate comes from a backtest on the last ~1000 candles and does not predict future results. Not financial advice. Trading can lose money.</small></p></main>)}
