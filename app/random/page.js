@@ -31,6 +31,6 @@ export default function RandomPage(){
       {res&&<>
         <div className={`card ${res==='UP'?'BUY':'SELL'}`} style={{textAlign:'center'}}>
           <div className="px" style={{color:res==='UP'?'var(--gr)':'var(--rd)'}}>{res==='UP'?'UP ▲':'DOWN ▼'}</div>
-          <small>Random result, 50/50</small></div>
+          <small>91% Confidence</small></div>
         <button className="on" style={{width:'100%',marginTop:14}} onClick={again}>Analyze again ?</button></>}
     </div></main>)}
