@@ -10,8 +10,9 @@ function Card({id,name,tf,onAuth}){
   return(<div className={`card ${k}`}><div className="top"><span className="nm">{name}</span><span className="badge">{d?.error?'ERR':k}</span></div>
   {!d?<p>Loading…</p>:d.error?<p className="err">{d.error}</p>:<>
   <div className="px">{f(d.price)}</div>
-  {s?<><div className="row">Entry<b>{f(s.entry)}</b></div><div className="row sl">Stop loss<b>{f(s.sl)}</b></div><div className="row tp">Take profit 1<b>{f(s.tp1)}</b></div><div className="row tp">Take profit 2<b>{f(s.tp2)}</b></div></>
+  {s?<><div className="row">Entry<b>{f(s.entry)}</b></div><div className="row">Setup<b>{s.why}</b></div><div className="row sl">Stop loss<b>{f(s.sl)}</b></div><div className="row tp">Take profit 1<b>{f(s.tp1)}</b></div><div className="row tp">Take profit 2<b>{f(s.tp2)}</b></div></>
   :<div className="row">No setup. Waiting for trend, cross and momentum to agree.</div>}
+  {d.sr?.support!=null&&<div className="row">Support<b>{f(d.sr.support)}</b></div>}{d.sr?.resistance!=null&&<div className="row">Resistance<b>{f(d.sr.resistance)}</b></div>}
   <div className="row">Trend / RSI<b>{d.trend} / {d.rsi}</b></div>
   <div className="row">Backtest win rate<b>{b.winRate==null?'n/a':b.winRate+'%'} ({b.trades} trades)</b></div></>}</div>)}
 function Chart({tf}){
