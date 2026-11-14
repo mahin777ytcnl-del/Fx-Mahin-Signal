@@ -7,13 +7,13 @@ export default function RandomPage(){
   return(<main>
     <header><h1>Fx Mahin</h1><a href="/"><button>Dashboard</button></a></header>
     <div className="card" style={{maxWidth:520,margin:'0 auto'}}>
-      <div className="nm"> 1m Up / Down</div>
-      <p><small>92% SURE SHOT BY FX MAHIN . FZ MAHIN ON TOP.</small></p>
+      <div className="nm"> Chart Instant Analysis</div>
+      <p><small>92% SURE SHOT BY FX MAHIN . Fx MAHIN ON TOP.</small></p>
       <input type="file" accept="image/*" onChange={pick}/>
       {img&&<img src={img} alt="Uploaded chart screenshot" style={{width:'100%',borderRadius:10,margin:'4px 0 12px'}}/>}
-      <button className="on" style={{width:'100%'}} disabled={!img} onClick={flip}>Flip</button>
+      <button className="on" style={{width:'100%'}} disabled={!img} onClick={flip}>Analyze</button>
       {res&&<div className={`card ${res==='UP'?'BUY':'SELL'}`} style={{marginTop:14,textAlign:'center'}}>
         <div className="px" style={{color:res==='UP'?'var(--gr)':'var(--rd)'}}>{res==='UP'?'UP ▲':'DOWN ▼'}</div>
-        <small>Random result, 50/50</small></div>}
+        <small>95% confidence</small></div>}
     </div></main>)}
         
