@@ -1,6 +1,6 @@
 'use client';
 import {useState,useEffect,useCallback} from 'react';
-const SYMS=[['BTCUSDT','BTC/USD'],['ETHUSDT','ETH/USD'],['EUR/USD','EUR/USD'],['GBP/USD','GBP/USD'],['USD/JPY','USD/JPY'],['XAU/USD','GOLD'],['WTI/USD','OIL (WTI)']];
+const SYMS=[['XAU/USD','GOLD (XAU/USD)']];
 const f=n=>n>=100?n.toFixed(2):n.toFixed(5);
 function Card({id,name,tf,onAuth}){
   const[d,setD]=useState(null);
