@@ -8,7 +8,7 @@ export default function RandomPage(){
     <header><h1>Fx Mahin</h1><a href="/"><button>Dashboard</button></a></header>
     <div className="card" style={{maxWidth:520,margin:'0 auto'}}>
       <div className="nm"> 1m Up / Down</div>
-      <p><small>92% SURE SHOT. PROVIDED MY MAHIN FX.</small></p>
+      <p><small>92% SURE SHOT BY FX MAHIN . FZ MAHIN ON TOP.</small></p>
       <input type="file" accept="image/*" onChange={pick}/>
       {img&&<img src={img} alt="Uploaded chart screenshot" style={{width:'100%',borderRadius:10,margin:'4px 0 12px'}}/>}
       <button className="on" style={{width:'100%'}} disabled={!img} onClick={flip}>Flip</button>
